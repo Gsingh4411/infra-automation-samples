@@ -1,0 +1,19 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: TerraformInstaller@1
+  inputs:
+    terraformVersion: '1.4.6'
+
+- script: |
+    terraform init
+    terraform validate
+    terraform plan
+  workingDirectory: terraform/azure-vnet
+  displayName: 'Terraform Plan'
